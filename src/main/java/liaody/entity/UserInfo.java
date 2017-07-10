@@ -18,6 +18,14 @@ import org.springframework.stereotype.Repository;
 public class UserInfo implements Serializable{
 
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "UserInfo [username=" + username + ", password=" + password + ", userEmail=" + userEmail + ", userId="
+				+ userId + "]";
+	}
 	private static final long serialVersionUID = 869386680479362227L;
 
 	private String username;

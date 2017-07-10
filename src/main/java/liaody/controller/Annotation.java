@@ -12,6 +12,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import liaody.entity.UserInfo;
@@ -34,6 +36,7 @@ public class Annotation {
 	private static final Log logger = LogFactory.getLog(Annotation.class);
 	@Autowired
 	private UserInfo userInfo;
+
 	/**
 	 * default constructor
 	 */
@@ -76,10 +79,14 @@ public class Annotation {
 	 * @return
 	 */
 	@RequestMapping(value = "/model1")
-	public ModelAndView model1() {
-		
-
+	public ModelAndView model1(Model model) {
+		// 直接从Model中获取模型数据
+		UserInfo tmpUser = (UserInfo) model.asMap().get("user1");
+		System.out.println(tmpUser.toString());
+		// http://localhost:8080/spring4maven/Annotation/model1?loginname=liaody&password=123
+		// 正如名字一样，既包含模型数据数据信息也包含视图信息
 		ModelAndView mv = new ModelAndView();
+		mv.setViewName("success");
 		return mv;
 	}
 
@@ -100,6 +107,16 @@ public class Annotation {
 		userInfo.setUsername(loginname);
 		userInfo.setPassword(password);
 		// 将user放入到model里，其它地方使用Model/ModelMap就可以去得到这个user了
-		model.addAttribute("user1",userInfo);
+		model.addAttribute("user1", userInfo);
+	}
+
+	@RequestMapping(value = "param1", method = RequestMethod.GET)
+	public ModelAndView testParam(@RequestParam("loginname") String loginname, @RequestParam String password) {
+		// 使用RequestParam自动绑定参数， 不在括号中写出具体的参数值则默认为传入的参数与形参一样
+		System.out.println("loginnane:" + loginname);
+		System.out.println("password:" + password);
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("success");
+		return mv;
 	}
 }
