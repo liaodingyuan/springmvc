@@ -6,9 +6,9 @@
         http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd  
         http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
 
-	<!-- 注解驱动 该注解会自动注册一个RequestMappingHandlerMapping和一个RequestMappingHandlerAdapter两个bean ，
-	除此之外还会注册一个默认的的ConverstionService、FormattingConverstionServiceFactoryBean。
-	如果要覆盖默认实现类，那么需要通过设置converters属性来完成-->
+	<!-- 注解驱动 该注解会自动注册一个RequestMappingHandlerMapping和一个RequestMappingHandlerAdapter两个bean 
+		， 除此之外还会注册一个默认的的ConverstionService、FormattingConverstionServiceFactoryBean。 
+		如果要覆盖默认实现类，那么需要通过设置converters属性来完成 -->
 	<mvc:annotation-driven conversion-service="conversionService" />
 
 	<!-- 对静态资源文件的访问 -->
@@ -24,9 +24,6 @@
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver"
 		p:prefix="/WEB-INF/views/" p:suffix=".jsp" />
 
-	<!-- 启动Spring MVC的注解功能，完成请求和注解POJO的映射 -->
-	<!-- <bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter"/> -->
-
 	<!-- 注解探测器 -->
 	<context:component-scan base-package="liaody" />
 
@@ -36,13 +33,14 @@
 	<!-- 配置文件上传，如果没有使用文件上传可以不用配置，当然如果不配，那么配置文件中也不必引入上传组件包 -->
 	<bean id="multipartResolver"
 		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
-		<!-- 默认编码 如果不经心形设置默认使用IOS-8859-1-->
+		<!-- 默认编码 如果不经心形设置默认使用IOS-8859-1 -->
 		<property name="defaultEncoding" value="utf-8" />
 		<!-- 文件大小最大值 -->
 		<property name="maxUploadSize" value="10485760000" />
 		<!-- 内存中的最大值 -->
 		<property name="maxInMemorySize" value="40960" />
 	</bean>
+
 	<!-- 备注：标准配置是：注解驱动，注解探测器，配置处理映射器，配置处理器适配器，配置视图解析器， 上传配置 -->
 	<!-- 装配自定义的类型转换器 ,注意注解驱动需要加上conversion-service -->
 	<bean id="conversionService"
@@ -55,7 +53,4 @@
 			</list>
 		</property>
 	</bean>
-
-
-
 </beans>  

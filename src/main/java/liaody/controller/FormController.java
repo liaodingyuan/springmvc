@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 * @date 2017Äê7ÔÂ16ÈÕ
 */
 @Controller
+@RequestMapping("/denanric")
 public class FormController {
 
 	// default constructor

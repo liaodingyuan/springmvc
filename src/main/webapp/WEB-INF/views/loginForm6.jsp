@@ -21,7 +21,7 @@
 			</tr>
 			<tr>
 				<td><label>生日：</label></td>
-				<td><form:input type="text" id="birthDay" name="birthDay" /></td>
+				<td><form:input path="birthDay"/></td>
 			</tr>
 			<tr>
 				<td><label>年龄：</label></td>

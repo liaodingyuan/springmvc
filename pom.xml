@@ -177,11 +177,11 @@
 
 		<!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-validator -->
 		<!-- 验证框架 -->
-		<dependency>
+		<!--  <dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-validator</artifactId>
 			<version>5.1.0.Final</version>
-		</dependency>
+		</dependency> -->
 	</dependencies>
 	<build>
 		<finalName>spring4maven</finalName>
