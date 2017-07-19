@@ -3,6 +3,8 @@
  */
 package liaody.controller;
 
+import java.util.Arrays;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.logging.Log;
@@ -11,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -118,5 +121,14 @@ public class Annotation {
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("success");
 		return mv;
+		
+	}
+
+	@RequestMapping(value = "/requestHeadrTest")
+	public void requestHeadrTest(@RequestHeader("User-Agent") Object[] userAgent,
+			@RequestHeader("Accept") String[] accpt) {
+
+		logger.info(userAgent);
+		logger.info(Arrays.deepToString(userAgent));
 	}
 }

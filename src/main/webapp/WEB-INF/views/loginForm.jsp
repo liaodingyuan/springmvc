@@ -18,6 +18,10 @@
 				<td><input type="text" id="birthDay" name="birthDay"></td>
 			</tr>
 			<tr>
+				<td><label>邮箱地址：</label></td>
+				<td><input type="text" id="email" name="email"></td>
+			</tr>
+			<tr>
 				<td><input type="submit" id="submit" value="登录"></td>
 			</tr>
 		</table>

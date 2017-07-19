@@ -14,24 +14,28 @@ import org.springframework.stereotype.Repository;
 * @author liaody
 * @date 2017年7月9日
 */
+// 使用JSR303注解对数据域进行验证，由hibernate-validator实现
 @Repository
-public class UserInfo implements Serializable{
+public class UserInfo implements Serializable{	
+
+	private static final long serialVersionUID = 869386680479362227L;
 
 
+	private String username;
+	private String password;
+	private String userEmail;
+	private String birthDay;
+	private int userId;
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
 	public String toString() {
-		return "UserInfo [username=" + username + ", password=" + password + ", userEmail=" + userEmail + ", userId="
-				+ userId + "]";
+		return "UserInfo [username=" + username + ", password=" + password + ", userEmail=" + userEmail + ", birthDay="
+				+ birthDay + ", userId=" + userId + "]";
 	}
-	private static final long serialVersionUID = 869386680479362227L;
 
-	private String username;
-	private String password;
-	private String userEmail;
-	private int userId;
+	
 	/**
 	 * default constructor
 	 */
@@ -87,4 +91,21 @@ public class UserInfo implements Serializable{
 	public void setUserId(int userId) {
 		this.userId = userId;
 	}
+
+
+	/**
+	 * @return the birthDay
+	 */
+	public String getBirthDay() {
+		return birthDay;
+	}
+
+
+	/**
+	 * @param birthDay the birthDay to set
+	 */
+	public void setBirthDay(String birthDay) {
+		this.birthDay = birthDay;
+	}
+
 }

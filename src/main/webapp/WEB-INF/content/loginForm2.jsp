@@ -4,10 +4,10 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>注册页面</title>
+<title>ModelAttribute注解的使用</title>
 </head>
 <body>
-	<form action="register" method="post">
+	<form action="login2" method="post">
 		<table>
 			<tr>
 				<td><label>登录名：</label></td>
@@ -16,10 +16,6 @@
 			<tr>
 				<td><label>密码：</label></td>
 				<td><input type="password" id="password" name="password"></td>
-			</tr>
-			<tr>
-				<td><label>邮箱地址：</label></td>
-				<td><input type="text" id="email" name="email"></td>
 			</tr>
 			<tr>
 				<td><input type="submit" id="submit" value="登录"></td>

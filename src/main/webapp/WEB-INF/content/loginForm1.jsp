@@ -4,18 +4,14 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>登录页面</title>
+<title>ModelAttribute注解的使用</title>
 </head>
 <body>
-	<form action="login2" method="post">
+	<form action="login1" method="post">
 		<table>
 			<tr>
 				<td><label>登录名：</label></td>
 				<td><input type="text" id="loginname" name="loginname"></td>
-			</tr>
-			<tr>
-				<td><label>生日：</label></td>
-				<td><input type="text" id="birthDay" name="birthDay"></td>
 			</tr>
 			<tr>
 				<td><input type="submit" id="submit" value="登录"></td>
