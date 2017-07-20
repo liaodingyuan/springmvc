@@ -7,19 +7,16 @@
 <title>登录页面</title>
 </head>
 <body>
-	<form action="login2" method="post">
+	<form action="login" method="post">
+		<font color="red"> ${ requestScope.message }</font>
 		<table>
 			<tr>
 				<td><label>登录名：</label></td>
 				<td><input type="text" id="loginname" name="loginname"></td>
 			</tr>
 			<tr>
-				<td><label>生日：</label></td>
-				<td><input type="text" id="birthDay" name="birthDay"></td>
-			</tr>
-			<tr>
-				<td><label>邮箱地址：</label></td>
-				<td><input type="text" id="email" name="email"></td>
+				<td><label>密 码：</label></td>
+				<td><input type="password" id="password" name="password"></td>
 			</tr>
 			<tr>
 				<td><input type="submit" id="submit" value="登录"></td>

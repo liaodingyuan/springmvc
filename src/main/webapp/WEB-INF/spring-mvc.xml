@@ -53,4 +53,18 @@
 			</list>
 		</property>
 	</bean>
+
+	<!-- 配置Spring拦截器 -->
+	<mvc:interceptors>
+		<mvc:interceptor>
+			<!-- 拦截所有请求 -->
+			<mvc:mapping path="/*" />
+			<bean class="liaody.service.interceptor.AuthorizationInterceptor"></bean>
+		</mvc:interceptor>
+
+	</mvc:interceptors>
+
+
+
+
 </beans>  

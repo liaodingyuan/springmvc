@@ -7,7 +7,7 @@
 <title>文件上传</title>
 </head>
 <body>
-	<form action="login2" method="post" enctype="multipart/form-data">
+	<form action="/spring4maven/upload" method="post" enctype="multipart/form-data">
 		<table>
 			<tr>
 				<td><label>文件描述：</label></td>

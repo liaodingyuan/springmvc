@@ -3,10 +3,12 @@
  */
 package liaody.entity;
 
+import java.io.File;
 import java.io.Serializable;
 import java.util.Date;
 
 import org.springframework.stereotype.Repository;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
 * <p>Title:User </p>
@@ -18,9 +20,15 @@ import org.springframework.stereotype.Repository;
 @Repository("user")
 public class User implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String loginname;
 	private Date birthDay;
 	private String email;
+	/** 对应上传文件件的类型是MultipartFile*/
+	private MultipartFile image;
 	public User() {
 		super();
 	}
@@ -66,6 +74,18 @@ public class User implements Serializable{
 	@Override
 	public String toString() {
 		return "User [loginname=" + loginname + ", birthDay=" + birthDay + ", email=" + email + "]";
+	}
+	/**
+	 * @return the image
+	 */
+	public MultipartFile getImage() {
+		return image;
+	}
+	/**
+	 * @param image the image to set
+	 */
+	public void setImage(MultipartFile image) {
+		this.image = image;
 	}
 	
 	

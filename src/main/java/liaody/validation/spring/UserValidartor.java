@@ -48,14 +48,16 @@ public class UserValidartor implements Validator {
 	 */
 	@Override
 	public void validate(Object target, Errors errors) {
-//		使用ValidationUtils.rejectIfEmpty来进行非空验证
-		ValidationUtils.rejectIfEmpty(errors, "loginname", null,"登录名不能够不为空");
-		ValidationUtils.rejectIfEmpty(errors, "email", null,"密码不能够为空");
-		 User user = (User)target;
-		 if(user.getLoginname().length()>10) {
-			 errors.rejectValue("loginname",null,"用户名不能够超过10字符");
-		 }
-
+		// 使用ValidationUtils.rejectIfEmpty来进行非空验证
+		// 对用户名进行验证
+		ValidationUtils.rejectIfEmpty(errors, "loginname", null, "登录名不能够不为空");
+		// 对邮件进行验证
+		ValidationUtils.rejectIfEmpty(errors, "email", null, "密码不能够为空");
+		User user = (User) target;
+		// 对用户名长度进行验证
+		if (user.getLoginname().length() > 10) {
+			errors.rejectValue("loginname", null, "用户名不能够超过10字符");
+		}
 
 	}
 

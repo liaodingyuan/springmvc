@@ -1,11 +1,12 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <body>
 <h2>测试@ModelAttribute的不同使用方法</h2>
-<a href="loginForm1">测试#ModeloAttribute(value="")注释返回具体类的方法</a><br><br>
-<a href="loginForm2">测试@ModelAttribute注释void返回值 的方法</a><br><br>
-<a href="loginForm3">测试@ModelAttribute注释返回具体类的方法</a><br><br>
-<a href="loginForm4">测试@ModelAttribute和@RequestMapping同事注释一个方法</a><br><br>
-<a href="loginForm5">测试@ModelAttribute注释一个方法的参数</a><br><br>
-<a href="/views/uploadForm.jsp">进行数据验证</a><br><br>
+<a href="loginOrRegister/login">用户登录</a><br><br>
+<a href="loginOrRegister/register">用户注册</a><br><br>
+<a href="views/uploadForm">进行数据验证</a><br><br>
+<a href="fileDwonload?filename=美女.mp4">文件下载美女</a><br><br>
 </body>
 </html>
