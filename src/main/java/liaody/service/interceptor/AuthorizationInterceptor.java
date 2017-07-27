@@ -68,8 +68,8 @@ public class AuthorizationInterceptor implements HandlerInterceptor {
 			if(userInfo==null) {
 				// 用户没有登录，跳转到登录页面
 				logger.info("AuthorizationInterceptork拦截请求：");
-				request.setAttribute("message", "为登录游客无法下载本站资源，请您先登录！");
-				request.getRequestDispatcher("loginForm").forward(request, response);
+				request.setAttribute("message", "未登录游客无法下载本站资源，请您先登录！");
+				request.getRequestDispatcher("/loginOrRegister/login").forward(request, response);
 				
 			}else {
 				logger.info("用户已经登录，AuthorizationInterceptor放行请求");
@@ -84,14 +84,15 @@ public class AuthorizationInterceptor implements HandlerInterceptor {
 	@Override
 	public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler,
 			ModelAndView modelAndView) throws Exception {
-		// TODO Auto-generated method stub
+
+		logger.info("AuthorizationInterceptor postHandle -->");
 
 	}
 
 	@Override
 	public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex)
 			throws Exception {
-		// TODO Auto-generated method stub
+		 logger.info("AuthorizationInterceptor afterCompletion-->");
 
 	}
 

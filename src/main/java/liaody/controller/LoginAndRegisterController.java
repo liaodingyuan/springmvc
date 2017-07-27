@@ -3,11 +3,8 @@
  */
 package liaody.controller;
 
-import java.io.File;
-import java.io.IOException;
-
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -24,7 +21,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import liaody.entity.User;
 import liaody.entity.UserInfo;
 import liaody.validation.spring.UserValidartor;
 
@@ -66,12 +62,25 @@ public class LoginAndRegisterController {
 	 * @return
 	 */
 	@RequestMapping(value = "/register", method = RequestMethod.GET)
-	public String registerForm() {
+	public String registerForm(Model model) {
 		logger.info("register get方法被调用");
+		UserInfo userInfo = new UserInfo();
+		model.addAttribute("userInfo", userInfo);
 		// 跳转到注册画面
 		return "registerForm";
 	}
-	
+	/**
+	 * 使用该方法对应页面的动态跳转文件上传画面
+	 * 
+	 * @param loginOrFrom
+	 * @return
+	 */
+	@RequestMapping(value = "/uploadForm", method = RequestMethod.GET)
+	public String loginAndRegisterForm() {
+
+		return "uploadForm";
+	}
+
 	/**
 	 * 用户从点击登录，使用这个方法调用到在/WEB-INF下受保护的loginForm.jsp。过度作用。
 	 * 
@@ -94,46 +103,24 @@ public class LoginAndRegisterController {
 	 * @return
 	 */
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
-	public String register(HttpServletRequest request, @ModelAttribute User user, Model model, Errors errors) {
+	public String register(@Valid @ModelAttribute UserInfo userInfo,  Errors errors,Model model) {
 
 		logger.info("register post方法被调用");
-		logger.info(user.getLoginname());
-		// 数据验证
-		userValidator.validate(user, errors);
+		logger.info(userInfo.getUsername() + "进行注册");
+		// Spring 数据验证
+		// userValidator.validate(user, errors);
 		// 数据验证失败直接返回注册页面
 		if (errors.hasErrors()) {
-			logger.info(errors.toString());
 			return "registerForm";
 		}
-		// 处理上传文件
-		if (!user.getImage().isEmpty()) {
-			// 上传路径
-			String path = request.getServletContext().getRealPath("/images");
-			// 上传文件名
-			String filename = user.getImage().getOriginalFilename();
-			File filePath = new File(path, filename);
-			// 如果上传的路径不存在就创建一个
-			if (!filePath.getParentFile().exists()) {
-				filePath.getParentFile().mkdir();
-			}
-			// 将上传文件保存到一个目标文件夹中
-			try {
-				user.getImage().transferTo(filePath);
-			} catch (IllegalStateException | IOException e) {
-				logger.error("上传文件保存失败");
-				e.printStackTrace();
-				return "registerForm";
-			}
-
-		}
-		model.addAttribute("registerUser", user);
+		model.addAttribute(userInfo.getUsername(), userInfo);
 		// 数据成功后跳转到登录页面loginForm.jsp
 		return "loginForm";
 	}
 
 	/**
-	 * 处理用户登录
-	 * 使用session判断
+	 * 处理用户登录 使用session判断
+	 * 
 	 * @return
 	 */
 	@RequestMapping(value = "login")
@@ -142,7 +129,8 @@ public class LoginAndRegisterController {
 			@RequestParam("password") String password) {
 		logger.info("user login action");
 		ModelAndView mv = new ModelAndView();
-		if (!StringUtils.isEmpty(loginname) && !StringUtils.isEmpty(password) && loginname.equals("liaody") && password.equals("123")) {
+		if (!StringUtils.isEmpty(loginname) && !StringUtils.isEmpty(password) && loginname.equals("liaody")
+				&& password.equals("123")) {
 			UserInfo userInfo = new UserInfo();
 			userInfo.setUsername(loginname);
 			userInfo.setPassword(password);
@@ -156,37 +144,6 @@ public class LoginAndRegisterController {
 		return mv;
 	}
 
-	/**
-	 * 使用spring自带的验证框架激进型数据验证。 验证的结果自动绑定的Errors对象中
-	 * 
-	 * @param user
-	 * @param model
-	 * @param errors
-	 *            验证结果会自动绑定的Errors对象中
-	 * @return
-	 */
-	@RequestMapping(value = "login2", method = RequestMethod.POST)
-	public String login2(@ModelAttribute User user, Model model, Errors errors) {
-		logger.info(user);
-		userValidator.validate(user, errors);
-		// 注意一点是，验证结果都会自动绑定在Errors对象中
-		if (errors.hasErrors()) {
-			return "loginForm";
-		}
 
-		return "success";
-	}
-
-	/**
-	 * 使用该方法对应页面的动态跳转
-	 * 
-	 * @param loginOrFrom
-	 * @return
-	 */
-	@RequestMapping(value = "/uploadForm", method = RequestMethod.GET)
-	public String loginAndRegisterForm() {
-
-		return "uploadForm";
-	}
 
 }

@@ -5,7 +5,7 @@ package liaody.controller;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
+import java.io.InputStream;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -58,6 +58,7 @@ public class FileUploadController {
 
 		request.setCharacterEncoding("UTF-8");
 		logger.info(decription);
+		InputStream ins =  uploadFile.getInputStream();
 		if (!uploadFile.isEmpty()) {// 注意容易出现bug，使用该方法，当文件为0字节的时候不能够上传，判断文件为空了。
 			// 上传文件路径
 			String path = "D:\\images\\";
