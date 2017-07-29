@@ -59,13 +59,13 @@ public class FileDownloadController {
 			Model model) throws IOException {
 
 		// 获取下载文件的路径
-		String path ="D:\\images\\";
+		String path = "D:\\images\\";
 		// 如果文件不存在
 		File file = new File(path + File.separator + filename);
 		// 设置HttpHeaders
 		HttpHeaders headers = new HttpHeaders();
 		// 解决下载文件名是中文导致乱码下载失败的问题
-		String downloadFileName = new String(filename.getBytes("UTF-8"),"ISO-8859-1" );
+		String downloadFileName = new String(filename.getBytes("UTF-8"), "ISO-8859-1");
 		// 通知浏览器以attachment下载的方式打开
 		headers.setContentDispositionFormData("arttachment", downloadFileName);
 		// 二进制数据（最常见的文件下载）
@@ -73,4 +73,5 @@ public class FileDownloadController {
 		// 设置返回的状态码为201
 		return new ResponseEntity<byte[]>(FileUtils.readFileToByteArray(file), headers, HttpStatus.CREATED);
 	}
+
 }

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace 习惯上设置成包名+sql映射文件名称 -->
+<mapper namespace="liaody.entity.mapper.UserMapper">
+	<!-- 增加用户 -->
+	<insert id="addUser" parameterType="userinfo">
+		insert into
+		userinfo(username,password,userEmail,age)
+		values(#{username},#{password},#{userEmail},#{age})
+	</insert>
+	<!-- 删除用户 -->
+	<delete id="deleteUser" parameterType="int">
+		delete from userinfo where
+		userId = #{userId}
+	</delete>
+	<!-- 更新用户 -->
+	<update id="updateUser" parameterType="userinfo">
+		update userinfo set
+		username = #{username},password = #{password},userEmail
+		=#{userEmail},age=#{age} where userId = #{userId}
+	</update>
+	<!-- 查询单个用户 -->
+	<select id="getUserById" parameterType="int" resultType="userinfo">
+		select *
+		from userinfo where userId = #{userId}
+	</select>
+	<!-- 查询所有用户 -->
+	<select id="getAllUsers" resultType="userinfo">
+		select * from userinfo
+	</select>
+</mapper>

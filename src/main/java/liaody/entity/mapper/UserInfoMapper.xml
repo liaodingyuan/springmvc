@@ -27,4 +27,24 @@
 		values
 		(#{username},#{password},#{userEmail},#{age})
 	</insert>
+	<!-- 创建用户 -->
+	<insert id="addUser" parameterType="liaody.entity.UserInfo">
+		insert into userinfo values(
+		<include refid="Base_Column_List" />
+		)
+	</insert>
+	<!-- 删除用户 -->
+	<delete id="deleteUser" parameterType="int">
+		delete from userinfo where
+		userId = #{userId}
+	</delete>
+	<!-- 修改用户 -->
+	<update id="updateUser" parameterType="liaody.entity.UserInfo">
+		update userinfo set
+		username=#{username},password=#{password},userEmail=#{userEmail},age=#{age}
+	</update>
+	<!-- 查询全部用户 -->
+	<select id="getAllUsers" resultType="liaody.entity.UserInfo">
+		select * from userinfo
+	</select>
 </mapper>

@@ -11,6 +11,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
+import liaody.constantscodes.ConstantCodes;
 import liaody.entity.UserInfo;
 
 /**
@@ -32,7 +33,7 @@ public class MybatisTest {
 	public static void main(String[] args) throws IOException {
 
 		// 加载放置在类路径下的mybatis-config.xml文件
-		InputStream inputStream = Resources.getResourceAsStream("mybatis-config.xml");
+		InputStream inputStream = Resources.getResourceAsStream(ConstantCodes.MYBATIS_CONFIG_FILE);
 		// 这里只是测试，应该使用单例模式创建SqlSressionFactory。它是线程安全的。
 		SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
 		// 执行持久化的对象，是执行持久化操作的对象。是但显成效，线程不安全，不能发共享，绝对不能将SqlSeresion

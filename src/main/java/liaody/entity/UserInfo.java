@@ -243,4 +243,13 @@ public class UserInfo implements Serializable {
 		return true;
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "UserInfo [userId=" + userId + ", username=" + username + ", password=" + password + ", userEmail="
+				+ userEmail + ", age=" + age + "]";
+	}
+
 }
