@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- mybatis调用存储过程 -->
+<mapper namespace="liaody.entity.mapper.ProcedureMapper">
+	<select id="getUserCount" parameterMap="getUserCountMap"
+		statementType="CALLABLE">
+		CALL liaody.ges_user_count(?,?)
+	</select>
+	<parameterMap type="java.util.Map" id="getUserCountMap">
+		<parameter property="sexid" mode="IN" jdbcType="INTEGER" />
+		<parameter property="usercount" mode="OUT" jdbcType="INTEGER" />
+	</parameterMap>
+</mapper>

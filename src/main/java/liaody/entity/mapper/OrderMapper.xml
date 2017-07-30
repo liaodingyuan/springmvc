@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace 习惯上设置成包名+sql映射文件名称 -->
+<mapper namespace="liaody.entity.mapper.OrderMapper">
+	<!-- 实体类属性名与数据库字段名不匹配，无法获取结果 -->
+	<select id="getUser1" parameterType="int" resultType="order">
+		select *
+		from orders where order_id = #{id}
+	</select>
+	<!-- 解决方法1 为数据库字段起别名 -->
+	<select id="getUserUseAliase" parameterType="int" resultType="order">
+		select
+		order_id id,order_no orderNo,order_price price from orders where
+		order_id=#{id}
+	</select>
+	<!-- 解决方法2 使用resultMap映射实体类与表的字段对应关系 -->
+	<select id="getUserUseResultType" parameterType="int" resultMap="orderResultMap">
+ select * from orders where order_id=#{id}
+	
+	</select>
+	<resultMap type="order" id="orderResultMap">
+		<!-- 使用id属性来映射主键字段 -->
+		<id property="id" column="order_id" />
+		<result property="orderNo" column="order_no" />
+		<result property="price" column="order_price" />
+		<!-- 使用result来映射非主属性字段 -->
+	</resultMap>
+</mapper>

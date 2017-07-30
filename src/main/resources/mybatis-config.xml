@@ -47,8 +47,10 @@
 	</settings>
 
 	<!-- 别名定义 -->
-	<typeAliases> <typeAlias alias="userinfo" type="liaody.entity.UserInfo" 
-		/> </typeAliases> 
+	<typeAliases>
+		<typeAlias alias="userinfo" type="liaody.entity.UserInfo" />
+		<typeAlias alias="order" type="liaody.entity.Order" />
+	</typeAliases>
 	<!-- 引入外部属性文件 -->
 
 	<!--自定义类型处理器 -->
@@ -125,9 +127,13 @@
 	<mappers>
 		<!--直接映射到相应的mapper文件 -->
 		<mapper resource="liaody/entity/mapper/UserInfoMapper.xml" />
-		<mapper resource="liaody/entity/mapper/UserMapper.xml"/>
-		<!-- 注册UserInfo映射接口 ，使用接口注解的方式-->
-		<mapper class ="liaody.serviceI.UserMapperI"/>
+		<mapper resource="liaody/entity/mapper/UserMapper.xml" />
+		<mapper resource="liaody/entity/mapper/OrderMapper.xml" />
+		<mapper resource="liaody/entity/mapper/ClassMapper.xml" />
+		<mapper resource="liaody/entity/mapper/ProcedureMapper.xml" />
+
+		<!-- 注册UserInfo映射接口 ，使用接口注解的方式 -->
+		<mapper class="liaody.serviceI.UserMapperI" />
 		<!--扫描包路径下所有xxMapper.xml文件 -->
 		<!-- <package name="liaody.entity.mapper" /> -->
 	</mappers>
