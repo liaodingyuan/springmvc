@@ -1,0 +1,13 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 演示多对一关系，一个班级里包含多个学生 -->
+<mapper namespace="mybatis.chart9.mapper.ClazzMapper">
+<!-- 根据id查询班级，返回resultMap -->
+<select id="getClazzById" parameterType="int" resultMap="clazzMap">
+SELECT * FROM TB_CLAZZ WHERE 
+</select>
+
+<resultMap id="clazzMap" type="mybatis.chart9.domain.Student">
+
+</resultMap>
+
+</mapper>

@@ -1,0 +1,8 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 演示一对一查询 ，一对多查询 -->
+<mapper namespace="mybatis.chart9.mapper.CardMapper">
+	<select id="selectCardById" parameterType="int" resultType="mybatis.chart9.domain.Card">
+		SELECT * FROM TB_CARD WHERE ID =#{id}
+	</select>
+
+</mapper>
