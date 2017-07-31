@@ -131,6 +131,8 @@
 		<mapper resource="liaody/entity/mapper/OrderMapper.xml" />
 		<mapper resource="liaody/entity/mapper/ClassMapper.xml" />
 		<mapper resource="liaody/entity/mapper/ProcedureMapper.xml" />
+		<mapper resource="mybatis/chart9/mapper/PersonMapper.xml" />
+		<mapper resource="mybatis/chart9/mapper/CardMapper.xml" />
 
 		<!-- 注册UserInfo映射接口 ，使用接口注解的方式 -->
 		<mapper class="liaody.serviceI.UserMapperI" />
