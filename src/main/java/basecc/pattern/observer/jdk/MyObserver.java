@@ -21,6 +21,8 @@ public class MyObserver implements Observer{
 		
 	System.out.println("调用了Observer的Update方法。");
 	
+	System.out.println("这是一个观察者");
+	
 		
 	}
 
