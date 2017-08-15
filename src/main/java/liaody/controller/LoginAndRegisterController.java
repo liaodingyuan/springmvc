@@ -70,18 +70,6 @@ public class LoginAndRegisterController {
 		return "registerForm";
 	}
 	/**
-	 * 使用该方法对应页面的动态跳转文件上传画面
-	 * 
-	 * @param loginOrFrom
-	 * @return
-	 */
-	@RequestMapping(value = "/uploadForm", method = RequestMethod.GET)
-	public String loginAndRegisterForm() {
-
-		return "uploadForm";
-	}
-
-	/**
 	 * 用户从点击登录，使用这个方法调用到在/WEB-INF下受保护的loginForm.jsp。过度作用。
 	 * 
 	 * @return
@@ -92,6 +80,20 @@ public class LoginAndRegisterController {
 		// 跳转到注册画面
 		return "loginForm";
 	}
+	
+	/**
+	 * 使用该方法对应页面的动态跳转文件上传画面
+	 * 
+	 * @param loginOrFrom
+	 * @return
+	 */
+	@RequestMapping(value = "/uploadForm", method = RequestMethod.GET)
+	public String loginAndRegisterForm() {
+	
+//		跳转到用户上传文件画面
+		return "uploadForm";
+	}
+
 
 	/**
 	 * 不需要像上面那种写法，直接使用Model，userModel方法已经先于该方法调用。 model里已经有用户的数据了。 上传文件作为对象的属性。
