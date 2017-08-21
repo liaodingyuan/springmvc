@@ -1,0 +1,209 @@
+实战Java高并发程序设计
+第一章：走进并行世界
+1.同步与异步：形容一次方法的调用。同步方法一旦开始，调用者必须等到方法调用结束后，才能继后续行为，会阻塞
+调用者。异步方法像一个方法传递，一旦方法开始就会立即返回，调用者就可以继续后续的行为，不会阻塞调用者。
+2.并发与并行：多任务交替执行，而多任务之间还可能是串行的，并没有做到正真意义上的同时执行。并发是正真意义上的
+同时执行。正真的并行
+3.临界区表示公共资源或者共享数据。每次只能够有一个线程使用它，一旦临界区被占用，其它线程要使用该资源
+就必须等待。并行程序中，临界区就是保护的对象。
+4.阻塞和非阻塞，形容多线程间的相互影响
+5.死锁、饥饿与活锁。死锁是相互占用对方线程的资源不释放，形成相互等待的情况，没有一条线程没有得到足够的资源执行
+下去。饥饿时线程优先度较低，资源被高优先度的线程抢占，一直没有得到足够资源执行。活锁是相互谦让造成两方都没有足够的资源
+执行下去。
+6.并发级别：阻塞（使用的临界区如果被占用需要进行等待），无饥饿（公平的优先级），无障碍（线程无障碍进入临界区，若发现数据损坏则回滚），
+无锁（在无障碍的基础上保证至少有一条线程能够在有限的时间中完成任务离开临界区），无等待（在无锁的基础上保证所有的线程都能够在有限的时间内执行完毕离开临界区）。
+7.Java内存模型：原子性，可见性，有序性。
+第二章：Java并行程序的基础
+1.public enum State {
+        /**
+         * Thread state for a thread which has not yet started.
+         */
+        NEW,
+        /**
+         * Thread state for a runnable thread.  A thread in the runnable
+         * state is executing in the Java virtual machine but it may
+         * be waiting for other resources from the operating system
+         * such as processor.
+         */
+        RUNNABLE,
+        /**
+         * Thread state for a thread blocked waiting for a monitor lock.
+         * A thread in the blocked state is waiting for a monitor lock
+         * to enter a synchronized block/method or
+         * reenter a synchronized block/method after calling
+         * {@link Object#wait() Object.wait}.
+         */
+        BLOCKED,
+        /**
+         * Thread state for a waiting thread.
+         * A thread is in the waiting state due to calling one of the
+         * following methods:
+         * <ul>
+         *   <li>{@link Object#wait() Object.wait} with no timeout</li>
+         *   <li>{@link #join() Thread.join} with no timeout</li>
+         *   <li>{@link LockSupport#park() LockSupport.park}</li>
+         * </ul>
+         *
+         * <p>A thread in the waiting state is waiting for another thread to
+         * perform a particular action.
+         *
+         * For example, a thread that has called <tt>Object.wait()</tt>
+         * on an object is waiting for another thread to call
+         * <tt>Object.notify()</tt> or <tt>Object.notifyAll()</tt> on
+         * that object. A thread that has called <tt>Thread.join()</tt>
+         * is waiting for a specified thread to terminate.
+         */
+        WAITING,
+
+        /**
+         * Thread state for a waiting thread with a specified waiting time.
+         * A thread is in the timed waiting state due to calling one of
+         * the following methods with a specified positive waiting time:
+         * <ul>
+         *   <li>{@link #sleep Thread.sleep}</li>
+         *   <li>{@link Object#wait(long) Object.wait} with timeout</li>
+         *   <li>{@link #join(long) Thread.join} with timeout</li>
+         *   <li>{@link LockSupport#parkNanos LockSupport.parkNanos}</li>
+         *   <li>{@link LockSupport#parkUntil LockSupport.parkUntil}</li>
+         * </ul>
+         */
+        TIMED_WAITING,
+
+        /**
+         * Thread state for a terminated thread.
+         * The thread has completed execution.
+         */
+        TERMINATED;
+    }
+2.线程的生命周期
+NEW:刚刚创建线程，线程还没有正真的执行。
+RUNNABLE:线程执行的时候（调用了start方法），表示线程所需要的资源都已经就绪。
+BLOCKED:阻塞状态，这时候线程会暂停执行，知道获得锁的请求。
+WAITING：进入无线时间等待。
+TIMED_WAITING:进入有限的时间等待。
+TERMINATED:线程执行完毕，过程不可逆。
+备注：WAITING的线程会等待特殊事件，比如通过wait方法等待的线程在等待notify方法，
+而通过join方法等待的线程会等待目标线程的终止。
+
+3.如果直接调用run方法，只会在当前线程中串行执行一遍run方法而已，并不会开启一条心的线程。
+正确的开启线程的方法是调用Thread实例的start方法。
+
+4.为什么会废弃stop方法。太过暴力，直接释放虽有资源和锁，导致对象被破坏。
+
+5.线程中断：线程中断并不会强制线程退出，而只是给线程一个通知。至于线程接收到如何处理，则由目标线程
+自行决定。
+void Thread.interupt():中断线程，设置中断标志位
+boolean Thread.isInterupted():判断线程是否被中断（通过中断标志位）
+boolean Thread.interrupted():判断线程是否被中断，会清除线程中断标志
+参照InterruptedTest测试类。
+备注：Thread.sleep方法由于中断而抛出异常，并且它会请称中断标志位。
+
+6.等待（wait）与通知（notify）
+是Object中的方法，不是Thread类中方法。
+①public final void wait() throws InterruptedException
+②public final native void notify()
+当一个实例对象上调用wait方法之后，当前线程就会在这个对象上等待。例如线程A中中调用了obj.wait(),
+ 那么线程A就会停止继续执行而转为等待状态。直到其它线程调用了obj.notify方法为止。这时候obj对象就成为了
+ 多线程之间的有效通信手段。还有一个方法是notifyAll，会唤醒所有在该对象上等待的线程。notify只是唤醒随机的
+ 一条线程，不推荐使用这个方法。
+ 
+ 重点注意：Object.wait()方法并不是可以随便调用的，它必须包含在一个synchronized语句中，无论是
+ wait还是notify方法都需要首先获得目标对象的一个监视器。调用之后都会释放该对象锁。
+ 
+ 7.不推荐使用.挂起（suspend）和继续执行（resume）线程
+ suspend导致线程暂停的同时，并不会释放任何资源。（调用了wait方法会释放对象锁）。
+ 对于挂起的线程，状态居然还是Runnable，也会造成对系统的误判。
+ 
+ 8.等待线程结束（join）和谦让（yield）
+ 一条线程要加入另外一条线程，最好的办法是等着它一起走。
+ public final void join() throws InterruptedException
+ public final synchronized void join(long mills) throws InterruptedException
+  有限时等待和无限等待两种。无限等待一直会阻塞当前线程，知道目标线程执行完毕，有限时的join会在超时之后继续执行。
+ 
+ public class JoinMain {
+	public volatile static int ii = 0;
+	public static class AddThread extends Thread {
+		public void run() {
+			for (int i = 0; i < 1000000; i++) {
+				ii++;// not thread safe
+			}
+		}
+	}
+	public static void main(String[] args) throws InterruptedException {
+		AddThread at = new AddThread();
+		at.start();
+		// 在main线程（也就是主线程）中调用at线程的join方法，表示主线程愿意等待at线程完成之后 在继续往下走
+		at.join();
+		System.out.println(ii);
+	}
+}
+  补充：join的本质是让调度线程wait早当前线程对想实例上 。
+ 注意不要在对象实例上使用类似wait或者notify等方法，这很可能会影响系统api的工作，或者被系统api影响。
+  public static native void yield();
+ 使当前线程让出cpu（当前线程让出cpu后还会继续争夺出cup），如果一个线程不是那么重要， 或者优先级低，而且害怕它占用过多的资源就可以适当调用yield方法。
+ 
+ 9.使用volatile关键字声明的变量，变量被修改后其他线程可以看得到。
+ 
+ 10.线程组：将相同功能的线程放在一个线程组里
+ 
+ 11.守护线程（daemon）
+ public class DaemonDemo {
+
+	public static class DemoT extends Thread {
+		public void run() {
+
+			while (true) {
+				System.out.println("I am alive");
+				try {
+					Thread.sleep(1000);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		}
+	}
+
+	public static void main(String[] args) throws InterruptedException {
+		Thread t = new DemoT();
+		// 设置守护线程必须在调用start之前调用，否则会得到一个异常
+		t.setDaemon(true);
+		t.start();
+		// 在主线程退出之后只剩一个守护线程，整个程序也会随之结束，如果不把线程设置为守护线程。那么
+		// 该线程会循环打印 I am alive
+		Thread.sleep(2000);
+	}
+}
+ 12.设置线程优先级
+ Java中使用数字1到数字10表示优先级，数字越大优先级越高。优先级1、5、10在Thread中有常量表示。
+ 
+ 13.volatile 并不能够保证安全，它只能够保证一条线程修改数据之后，其它线程能够看到这个改动。
+ 两条数据同时修改竞争数据的时候，依然会产生冲突。
+
+14.synchronized关键字的使用
+实现线程同步。对同步代码加锁，是的每一次只有一条线程可以进入同步块。
+①指定对象加锁：给给定的对象加锁，进入同步代码块之前要获得给定对象的锁。
+②直接作用于实例方法：相当于对当前实例加锁。进入同步代码块之前要获得当前实例的锁。
+③直接作用于静态方法：相当于对当前类加锁，进入同步代码块之前要获得当前类的锁。
+
+第三章：JDK并发包
+1.synchronized的功能扩展：重入锁
+重入锁可以完全代替synchronized关键字。JDK1.5以前重入锁的性能远远好于synchronized，1.6开始
+两者的性能差距并不大。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
