@@ -14,25 +14,37 @@ import java.util.concurrent.locks.ReentrantLock;
 */
 public class ReenterLock implements Runnable{
 
-	public static ReentrantLock lock = new ReentrantLock();
+	public ReentrantLock lock = new ReentrantLock();
+	// 需要是static才会形成临界区
 	public static int ii = 0;
-	
 	@Override
 	public void run() {
 
 		for (int i = 0; i <1000000; i++) {
 			lock.lock();
+			lock.lock();
 			try {
 				ii++;
-			}finally {
-			
+			}finally {			
+				lock.unlock();
 				lock.unlock();
 			}
 		}
-		
+
 	}
 
-	public static void maein(String[] aegs) {
+	public static void main(String[] args) throws InterruptedException {
 		
+	ReenterLock lock = new ReenterLock();
+	Thread t1 = new Thread(lock);
+	Thread t2 = new Thread(lock);
+	t1.start();
+	t2.start();
+	t1.join();
+	t2.join();
+	System.out.println(ii);
+	
+	
+	
 	}
 }

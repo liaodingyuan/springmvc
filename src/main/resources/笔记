@@ -190,8 +190,63 @@ boolean Thread.interrupted():判断线程是否被中断，会清除线程中断标志
 重入锁可以完全代替synchronized关键字。JDK1.5以前重入锁的性能远远好于synchronized，1.6开始
 两者的性能差距并不大。
 
+2.重入锁：
+①
+释放过少的锁，否则会造成死锁。
+释放过多的锁（unlock）：抛java.lang.IllegalMonitorStateException异常
+②中断响应
+③带时间的等待锁
+④公平锁
+public ReentrantLock(boolean fair)。默认情况下锁是非公平的。
+公平锁必然要求系统维护一个有序队列，实现的成本比较高。性能比较底下
 
+3.重入锁的好搭档：Condition条件
+Object.wait() Object.notify()配合synchronized关键字配合使用。
+Condition（含有await和singleAll方法）是和ReentrantLock使用的。
+还有一个种是使用ThreadLocal，保证线程的安全，但是注意不要ThreadLocal塞大数据对象。虚拟机不会回收的，容易造成内存溢出。
 
+Condition：
+await方法：使线程等待并释放锁，当其他线程中所用single或者singleAll方法时，线程会重新获得锁并继续执行。或当线程被中断的时候，也能够跳出的等待。
+awaitUninterruptibly与await方法的功能相同。当时它并不会在等待过程中响应中断。
+
+4.允许多个线程同时访问：信号量（Semaphore）
+信号量可以指定多条线程同时访问资源。
+public Semaphore(int permits,boolean fair);
+public Semaphore(int permits);
+主要的逻辑方法（功能有）：
+acquire:默认会响应中断.当无法获得一个许可的时候回默认等待或者被中断
+acquireUninterrupted:不会响应中断
+tryAcquire：尝试获得锁，不会进行等待，成功返回true，失败返回false（立即返回）
+tryAcquire(long timeout,TimeUnit unit)
+release：释放一个信号量
+
+5.ReadWriterLock读写锁
+使用锁分离技术是一个很好的技术。
+如果读的操作频率远远大于写的操作频率。使用读写锁能提高很大的效率。
+
+6.ThreadLocal 的实现原理
+
+第五章：并行模式与算法
+
+1.满足以下两个条件
+①当对象创建之后，其内部状态和数据不会发生任何变化。
+②对象需要被共享，被多线程频繁访问
+
+2.创建不变模式
+①去除setter方法以及修改自身属性的所有方法
+②将所有属性设置为private final，确保其不会被修改。
+③确保没有子类可以重载和修改他的行为
+④有一个full constructor
+
+String 类被设计为典型的不变模式，除此之外还有所有元数据类的包装类。它们使用非常广泛，不变模式保证了
+它们的所有实例均不需要同步。
+
+3.生产者和消费者模式
+模式中的内存缓冲区的主要功能是数据在多线程之间的共享。此外，通过缓冲区，可以缓解生产者
+和消费者之间的性能差异。
+
+生产者：用于提交用户请求队列提取用户任务，并装入内存缓冲区。
+消费者：在内存缓冲区中提取并处理任务
 
 
 
