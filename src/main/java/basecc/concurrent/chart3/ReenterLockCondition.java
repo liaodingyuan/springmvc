@@ -6,6 +6,8 @@ package basecc.concurrent.chart3;
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.ReentrantLock;
 
+import org.apache.log4j.helpers.ThreadLocalMap;
+
 /**
  * <p>
  * Title:ReenterLockCondition
@@ -40,6 +42,7 @@ public class ReenterLockCondition implements Runnable {
 		condition.signalAll();// singal之后会把锁释放
 		lock.unlock();
 	}
+	
 
 	@Override
 	public void run() {

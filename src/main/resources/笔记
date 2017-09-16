@@ -225,6 +225,42 @@ release£ºÊÍ·ÅÒ»¸öÐÅºÅÁ¿
 Èç¹û¶ÁµÄ²Ù×÷ÆµÂÊÔ¶Ô¶´óÓÚÐ´µÄ²Ù×÷ÆµÂÊ¡£Ê¹ÓÃ¶ÁÐ´ËøÄÜÌá¸ßºÜ´óµÄÐ§ÂÊ¡£
 
 6.ThreadLocal µÄÊµÏÖÔ­Àí
+ThreadLocalMapµÄÊý¾Ý½á¹¹£º¿ÉÒÔÀí½âÎªÒ»¸ömap£¬¶¨ÒåÔÚThreadÄÚ²¿
+	ThreadLocal.ThreadLocalMap threadLocals = null;
+ÉèÖÃµ½ThreadLocalÖÐµÄÊý¾Ý£¬Ò²ÕýÊÇÐ´ÈëthreadLocals±äÁ¿µÄ¼¯ºÏ¡£keyÎªµ±Ç°µÄThreadLocal¶ÔÏó
+value¾ÍÊÇÎÒÃÇÐèÒªµÄÖµ¡£
+	public<T> T get() {
+		// ÄÃµ½µ±Ç°Ïß³Ì
+		Thread t = Thread.currentThread();
+		// »ñÈ¡ÄÚ±»µÄThreadLocalMap
+		// getMap is a faction		
+		ThreadLocalMap getMap = null;
+		ThreadLocalMap map= getMap;
+		if(map!=null) {
+			ThreadMap.Entry e = map.getEntry(this);
+		}
+		
+				
+		return null;
+	}
+
+7.Ê¹ÓÃÎÞËøµÄ¶ÔÏóÒýÓÃAtomicReference
+ÓëAtomicIntegerÀàËÆ£¬¶ÔÓ¦ÆÕÍ¨¶ÔÏóµÄÒýÓÃ£¬Ò²¾ÍÊÇËµÔÚÐÞ¸Ä¶ÔÏóÒýÓÃÊ±Ïß³ÌÊ±°²È«µÄ¡£
+ÅÐ¶ÏÐ´ÈëÌõ¼þµÄµ±Ç°ÖµºÍÆÚÍûÖµÊÇ·ñÒ»ÖÂ¿ÉÒÔ×÷ÎªÏß³Ì°²È«µÄÒ»ÖÖ»úÖÆ»òÕßËµÊÖ¶Î¡£µ«ÊÇµ±Ç°Öµ
+±»ÐÞ¸ÄÁ½´Î£¬µÚ¶þ´Î±»ÐÞ¸Ä»ØÀ´Ô­À´µÄÖµµÃÇé¿ö£¬µ±Ç°Ïß³Ì¾ÍÎÞ·¨ÅÐ¶Ïµ±Ç°¶ÔÏóÊÇ·ñ±»ÐÞ¸Ä¹ý¡£
+
+ËùÒÔÕâÖÖ°²È«»úÖÆÒ²ÊÇÓÐÈ±ÏÝµÄ¡£
+
+8.´øÓÐÊ±¼ä´ÁµÄ¶ÔÏóÒýÓÃ£ºAtomicStampedReference
+²»½öÎ¬»¤ÁË¶ÔÏóÄÚµÄÖµ£¬»¹Î¬»¤ÁËÒ»¸öÊ±¼ä´Á¡£µ±¶ÔÏóµÄÊýÖµ±»ÐÞ¸ÄµÄÊ±ºò£¬²»½ö»á¸üÐÂÊý¾Ý£¬»¹±ØÐë»á¸üÐÂ
+Ê±¼ä´Á¡£
+
+
+
+
+
+
+
 
 µÚÎåÕÂ£º²¢ÐÐÄ£Ê½ÓëËã·¨
 
@@ -247,6 +283,96 @@ String Àà±»Éè¼ÆÎªµäÐÍµÄ²»±äÄ£Ê½£¬³ý´ËÖ®Íâ»¹ÓÐËùÓÐÔªÊý¾ÝÀàµÄ°ü×°Àà¡£ËüÃÇÊ¹ÓÃ·Ç³£¹
 
 Éú²úÕß£ºÓÃÓÚÌá½»ÓÃ»§ÇëÇó¶ÓÁÐÌáÈ¡ÓÃ»§ÈÎÎñ£¬²¢×°ÈëÄÚ´æ»º³åÇø¡£
 Ïû·ÑÕß£ºÔÚÄÚ´æ»º³åÇøÖÐÌáÈ¡²¢´¦ÀíÈÎÎñ
+Ê¹ÓÃBlockingQueue×÷Îª»º³åÇø£¨¾ßÌåÊµÏÖÊ¹ÓÃLinkedBlockingQueue£©
+Ê¹ÓÃofferºÍtake¾ßÓÐ×èÈû¹¦ÄÜµÄ·½·¨£¬ÊµÏÖ»º½âÉú²úÕßºÍÏû·ÑÕßÖ®¼äµÄÐÔÄÜ²îÒì
+
+5.5FutureÄ£Ê½
+ºËÐÄË¼ÏëÊÇÒì²½µ÷ÓÃ£¬·½·¨µ÷ÓÃ²»»á×èÈû¶øÊÇÁ¢¼´·µ»Ø¡£
+
+Spring Mvc ÆóÒµÊµÕ½
+µÚÁùÕÂ
+1.Êý¾Ý°ó¶¨Á÷³Ì
+Spring mvc¿ò¼Ü½«ServletRequest¶ÔÏóÒÔ¼°´¦Àí·½·¨µÄ²ÎÊýÊµÀý´«µÝ¸øDataBinder£¬DataBinderµ÷ÓÃ×°ÅäÔÚ
+Spring WebÉÏÏÂÎÄÖÐµÄConversionService×é¼þ¼¤½øÐÍÊý¾ÝÀàÐÍ×ª»»£¬Êý¾Ý¸ñÊ½»¯µÄ¹¤×÷£¬²¢½«ServletRequest
+ÖÐµÄÏûÏ¢´«µÝµ½²ÎÊý¶ÔÏóÖÐ¡£
+È»ºóÔÙµ÷ÓÃValidator×é¼þ¶ÔÒÑ¾­°ó¶¨ÁËÇëÇóÏûÏ¢Êý¾ÝµÄ²ÎÊý¶ÔÏó½øÐÐÊý¾ÝºÏ·¨ÐÔÑéÖ¤£¬²¢½«Éú³ÉÊý¾Ý°ó¶¨½á¹ûBindingResult¶ÔÏó¡£
+BindingResult°üº¬ÒÑ¾­Íê³ÉÊý¾Ý°ó¶¨µÄ²ÎÊý¶ÔÏó£¬»¹Ó¦¸Ã°üº¬ÏìÓ¦µÄÐ£Ñé´íÎó¶ÔÏó£¬Spring mvc³éÈ¡BingdingResultÖÐµÄ²ÎÊý¶ÔÏó
+ÒÔ¼°Ð£Ñé´íÎó¶ÔÏó£¬²¢½«ËüÃÇ¸³Öµ¸ø´¦Àí·½·¨µÄÏìÓ¦²ÎÊý¡£
+
+Java±à³ÌË¼Ïë
+µÚÒ»ÕÂ ¶ÔÏóµ¼ÂÛ
+1.1³éÏóµÄ¹ý³Ì
+¢ÙÍòÎï½Ô¶ÔÏó£¨JavaÖÐËùÓÐµÄ¶¼ÊÇ¶ÔÏó£©
+¢Ú³ÌÐòÊÇ¶ÔÏóµÄ¼¯ºÏ£¨Java³ÌÐòÓÉ¶ÔÏó¹¹³É£©
+¢ÛÃ¿¸ö¶ÔÏó¶¼ÓÐ×Ô¼ºµÃÓÉÆäËû¶ÔÏóËù¹¹³ÉµÄ´æ´¢£¨¶ÔÏóÖ®ÖÐ°üº¬ÓÐÆäËû¶ÔÏó£©
+¢ÜÃ¿¸ö¶ÔÏó¶¼ÓµÓÐÆäÀàÐÍ£¨Ã¿¸ö¶ÔÏó¶¼ÊÇÒ»ÖÖÀàÐÍ£©
+¢ÝÄ³Ò»ÌØ¶¨ÀàÐÍµÄËùÓÐ¶ÔÏó¶¼¿ÉÒÔ ½ÓÊÕÍ¬ÑùµÄÏûÏ¢£¨×ÓÀàºÍ½Ó¿ÚµÄÊµÏÖÀà¿ÉÒÔ½ÓÊÜÍ¬ÑùµÄÏûÏ¢£©
+¸ß¶È×Ü½á£º¶ÔÏó¾ßÓÐ×´Ì¬£¨×Ö¶ÎÊôÐÔÖµ£©¡¢ÐÐÎª£¨·½·¨£©ºÍ±êÊ¶£¨±êÊ¶·û£©¡£
+1.2Ã¿¸ö¶ÔÏó¶¼ÓÐÒ»¸ö½Ó¿Ú
+´´½¨³éÏóÊý¾ÝÀàÐÍÊÇÃæÏò³ÌÐòÉè¼ÆµÄ»ù±¾¸ÅÄîÖ®Ò»¡£ÀàÃèÊöÁË¾ßÓÐÏàÍ¬ÌØÐÔ£¨Êý¾ÝÔªËØ£©ºÍÐÐÎª£¨¹¦ÄÜµÄ¶ÔÏó¼¯ºÏ£©
+½Ó¿ÚÈ·¶¨ÁËÄ³Ò»ÌØ¶¨¶ÔÏóËùÄÜ·¢³öµÄÇëÇó¡£
+1.3Ã¿¸ö¶ÔÏó¶¼Ìá¹©·þÎñ
+*×îºÃµÄÀí½âÊÇ½«¶ÔÏóÀí½âÎªÒ»¸ö·þÎñµÄÌá¹©Õß¡£³ÌÐò±¾Éí½«ÏòyoghurtÌá¹©·þÎñ£¬ËüÊÇÍ¨¹ýµ÷ÓÃÆäËû¶ÔÏóÌá¹©µÄ·þÎñÀ´ÊµÏÖ
+ÕâÒ»¸öÄ¿µÄµÄ¡£
+*½«¶ÔÏó¿´×ö·þÎñÌá¹©Õß£¬ÓÐÖúÓÚÌá¹©¶ÔÏóµÄÄÚ¾ÛÐÔ¡£
+1.4±»Òþ²ØµÄÊµÏÖ
+*Ê¹ÓÃ·ÃÎÊÐÞÊÎ·û¿ØÖÆ¶Ô¶ÔÏóµÄ·ÃÎÊ
+public¡¢protected¡¢°ü·ÃÎÊÈ¨ÏÞ¡¢private ·ÃÎÊÈ¨ÏÞÒ»´Î±äÐ¡
+1.5¸´ÓÃµÄ¾ßÌåÊµÏÖ
+ÔÚ½¨Á¢ÐÂÀàÐÍµÄÊ±ºòÊ¹ÓÃ×éºÏ£¬»á¸ü¼ÓÁé»î¡£
+Ê¹ÓÃÏÖÓÐÀàºÏ³ÉÐÂÀà£¬ÕâÖÖ¸ÅÄî±»³ÆÎª×éºÏ£¨has a£©£¬Èç¹û×éºÏÊÇ¶¯Ì¬·¢ÉúµÄ£¬¾Í³ÆËüÎª¾ÛºÏ¡£
+1.6¼Ì³Ð
+ÒÔÏÖÓÐÀàÎª»ù´¡´´½¨ÐÂÀàµÄ¹ý³Ì
+×¢Òâ×ÓÀàÊÇÓµÓÐ¸¸ÀàµÄµÄprivate³ÉÔ±µÄ£¬²»¹ýËüÃÇ»á±»Òþ²ØÆðÀ´²»ÄÜ¹»½øÐÐ·ÃÎÊ£¬Ó¦¸ÃÊ¹ÓÃ¸¸ÀàµÄ·ÃÎÊÆ÷½øÐÐ
+·ÃÎÊ£¬Èç¹ûÓÐ±ØÒªµÄ»°¡£
+1.7°éËæ¶àÌ¬µÄ¿É»¥»»¶ÔÏó
+³£½«Ò»¸ö¶ÔÏóµ±×ö»ùÀàÐÍÀ´¶ÔÏó£¬Õâ»á²úÉúÉú¶àÌ¬µÄÐ§¹û¡£ÕâÖÖ¶àÌ¬µÄµ÷ÓÃ°æ±¾ÓÉ¶¯Ì¬ÀàÐÍ¾ö¶¨¡£
+1.8JavaµÄµ¥¸ù¼Ì³Ð½á¹¹
+ËùÓÐµÄÀà¶¼¼Ì³ÐÓÚObjectÀà£¬ËùÓÐ¶ÔÏó¶¼¾ßÓÐÒ»¸ö¹²ÓÃµÄ½Ó¿Ú£¬Ê¹ËùÓÐµÄ¶ÔÏó¶¼¾ßÓÐÒ»¶¨µÄ¹¦ÄÜ¡£
+1.9 ÈÝÆ÷¡£
+²ÎÊý»¯ÀàÐÍ
+ 
+µÚ¶þÕÂ Ò»ÇÐ¶¼ÊÇ¶ÔÏó
+2.1Ê¹ÓÃÒýÓÃ²Ù×÷
+²Ù×ÝµÄ²Ù×÷·ûÊµ¼ÊÉÏÊÇ¶ÔÏóµÄÒ»¸öÒýÓÃ¡£
+2.2 ±ØÐëÓÉÄã´´½¨ËùÓÐ¶ÔÏó
+2.2.1 ´æ´¢µ½Ê²Ã´·½·¨
+¢Ù¼Ä´æÆ÷ ´¦ÀíÆ÷ÄÚ²¿
+¢Ú¶ÑÕ»
+¢Û¶Ñ
+¢Ü³£Á¿´æ´¢
+¢Ý·ÇRAM´æ´¢
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
