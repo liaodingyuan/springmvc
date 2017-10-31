@@ -343,6 +343,17 @@ public、protected、包访问权限、private 访问权限一次变小
 ④常量存储
 ⑤非RAM存储
 
+Spring MVC Mybatis企业应用实战
+第十一章 MyBatis的事务管理和缓存机制
+1.事务的特征：原子性一致性隔离性持久性
+2.Transaction接口
+MyBatis的事务管理分为两种：
+①使用JDBC的事务管理机制，使用java.sql.Connection对象完成对事务的提交、回滚和关闭等操作。
+②使用MANAGED的事务管理机制。Mybatis并不会自己去实现事务管理，而是让容器例如WebLogic、JBOSS
+等来实现对事务的管理。
+
+
+
 
 
 
