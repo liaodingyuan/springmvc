@@ -122,13 +122,13 @@ public class ArrowRingChart {
 		// 箭头位置修正角度
 		double diffNg = 0d;
 		// 图的半径
-		final double circleRadius = 200d;
+		final double circleRadius = 202d;
 		// 定义箭头的大小
 		final double arrowRadius = 7d;
 		// 图的中心X坐标
-		final double centerX = 400d;
+		final double centerX = 401d;
 		// 图的中心Y坐标
-		final double centerY = 400d;
+		final double centerY = 401d;
 		// 箭头的开始位置和结束位置的修正
 		double adjustmentL = 0d;
 		// 绘制三角形的位置（从中心圆角的角度）
