@@ -12,6 +12,8 @@ import java.awt.Rectangle;
 import java.awt.Stroke;
 import java.awt.geom.GeneralPath;
 import java.awt.geom.Rectangle2D;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -22,10 +24,17 @@ import javax.swing.JPanel;
 
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.JFreeChart;
+import org.jfree.chart.LegendItem;
+import org.jfree.chart.LegendItemCollection;
+import org.jfree.chart.labels.StandardPieSectionLabelGenerator;
+import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.plot.RingPlot;
+import org.jfree.chart.renderer.category.CategoryItemRenderer;
+import org.jfree.chart.renderer.xy.CyclicXYItemRenderer;
 import org.jfree.data.general.DefaultPieDataset;
 import org.jfree.data.general.PieDataset;
 import org.jfree.ui.RectangleInsets;
+import org.jfree.xml.util.AttributeDefinition;
 
 /**
  * <p>
@@ -55,8 +64,8 @@ public class ArrowRingChart {
 	};
 	static Map<String, Double> dataList = new HashMap<String, Double>();
 	static {
-		dataList.put("title1", 40d);
-		dataList.put("title2", 60d);
+		dataList.put("title1", 40.2222d);
+		dataList.put("title2", 60.2222d);
 	}
 
 	public void paintLocal(Graphics g) {
@@ -64,10 +73,11 @@ public class ArrowRingChart {
 		PieDataset dataset = createDataset(dataList);
 		JFreeChart jfreechart = ChartFactory.createRingChart("", dataset, false, false, false);
 		jfreechart.setBackgroundPaint(null);
-		jfreechart.setBackgroundImageAlpha(0.0f);
+		// jfreechart.setBackgroundImageAlpha(0.0f);
 
 		// 绘图区的设置
 		RingPlot plot = (RingPlot) jfreechart.getPlot();
+
 		// 设置图形为
 		plot.setCircular(true);
 		// 设置圆环的大小（数值越大有色部分占的比例就越大）
@@ -75,7 +85,8 @@ public class ArrowRingChart {
 		RectangleInsets insets = new RectangleInsets(-36, -35, -35, -35);
 		plot.setInsets(insets);
 		plot.setBackgroundAlpha(0.0f);
-		plot.setBackgroundPaint(null);
+
+		
 
 		// 设置边缘线
 		for (String key : dataList.keySet()) {
@@ -83,11 +94,12 @@ public class ArrowRingChart {
 			plot.setSectionOutlinePaint(key, Color.WHITE);
 			plot.setSectionPaint(key, ChartColor.get(key));
 		}
-
+		 plot.setLabelGenerator(
+		 new StandardPieSectionLabelGenerator("{1}".replaceAll(".", ""), NumberFormat.getNumberInstance(),  new DecimalFormat("##.###")));
 		// 设置圆形的扇形区域分割线不可见
 		plot.setSeparatorsVisible(false);
+		plot.setSimpleLabels(true);
 		Graphics2D g2 = (Graphics2D) g;
-		// 绘制图形
 		jfreechart.draw(g2, new Rectangle(0, 0, 800, 800));
 
 		// 设置暗灰色
