@@ -63,6 +63,7 @@
 	<!--plugins插件之 分页拦截器 -->
 	<!-- <plugins> <plugin interceptor="com.xhm.util.PageInterceptor"></plugin> 
 		</plugins> -->
+	
 	<!--配置environment环境 -->
 	<environments default="mysql">
 		<!-- 环境配置1，每个SqlSessionFactory对应一个环境 -->
@@ -131,6 +132,7 @@
 		<mapper resource="liaody/entity/mapper/OrderMapper.xml" />
 		<mapper resource="liaody/entity/mapper/ClassMapper.xml" />
 		<mapper resource="liaody/entity/mapper/ProcedureMapper.xml" />
+		<mapper resource="liaody/entity/mapper/ManyDataMapper.xml" />
 		<mapper resource="mybatis/chart9/mapper/PersonMapper.xml" />
 		<mapper resource="mybatis/chart9/mapper/CardMapper.xml" />
 

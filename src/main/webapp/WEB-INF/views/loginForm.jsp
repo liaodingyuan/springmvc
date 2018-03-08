@@ -7,7 +7,7 @@
 <title>登录页面</title>
 </head>
 <body>
-	<form action="loginOrRegister/login" method="post">
+	<form action="login" method="post">
 		<font color="red"> ${ requestScope.message }</font>
 		<table>
 			<tr>
