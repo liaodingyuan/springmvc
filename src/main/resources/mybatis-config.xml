@@ -60,10 +60,22 @@
 		<package name="liaody" />
 	</typeHandlers>
 
+
 	<!--plugins插件之 分页拦截器 -->
+	<plugins>
+		<!-- com.github.pagehelper为PageHelper类所在包名 -->
+		<plugin interceptor="com.github.pagehelper.PageHelper">
+			<!-- 方言 -->
+			<property name="dialect" value="mysql" />
+			<!-- 该参数默认为false -->
+			<!-- 设置为true时，使用RowBounds分页会进行count查询 -->
+			<property name="rowBoundsWithCount" value="true" />
+		</plugin>
+	</plugins>
+
 	<!-- <plugins> <plugin interceptor="com.xhm.util.PageInterceptor"></plugin> 
 		</plugins> -->
-	
+
 	<!--配置environment环境 -->
 	<environments default="mysql">
 		<!-- 环境配置1，每个SqlSessionFactory对应一个环境 -->
@@ -141,5 +153,6 @@
 		<!--扫描包路径下所有xxMapper.xml文件 -->
 		<!-- <package name="liaody.entity.mapper" /> -->
 	</mappers>
+
 
 </configuration>  

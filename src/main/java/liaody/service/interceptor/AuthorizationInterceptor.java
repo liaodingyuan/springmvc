@@ -30,7 +30,7 @@ import liaody.entity.UserInfo;
 public class AuthorizationInterceptor implements HandlerInterceptor {
 
 	// 不拦截loginForm和login的请求
-	private static final String[] IGNORE_URL = { "/loginForm", "login","register","/registerForm" };
+	private static final String[] IGNORE_URL = { "/loginForm", "login","register","/registerForm","/beforeR","/afterR" };
 	private static final Log logger = LogFactory.getLog(AuthorizationInterceptor.class);
 
 	public AuthorizationInterceptor() {

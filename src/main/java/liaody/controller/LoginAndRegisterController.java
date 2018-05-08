@@ -143,6 +143,7 @@ public class LoginAndRegisterController {
 			// 
 			
 			
+			
 		} else {
 			mv.addObject("message", "登录名或者密码错误，请重新输入！");
 			mv.setViewName("loginForm");

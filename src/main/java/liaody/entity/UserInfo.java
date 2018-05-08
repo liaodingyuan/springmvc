@@ -38,23 +38,23 @@ public class UserInfo implements Serializable {
 	/** 数据库自行分配的用户id */
 	private int userId;
 	/** 用户名 */
-	@NotBlank(message = "用户名不能够为空")
-	@Length(min = 6, max = 18, message = "用户名长度必须大于等于6字符，小于等于15字符")
+//	@NotBlank(message = "用户名不能够为空")
+//	@Length(min = 6, max = 18, message = "用户名长度必须大于等于6字符，小于等于15字符")
 	private String username;
 	/** 用户密码 */
-	@NotBlank(message = "密码不能够为空")
-	@Length(min = 6, max = 18, message = "密码长度必须大于等于6字符，小于等于15字符")
+//	@NotBlank(message = "密码不能够为空")
+//	@Length(min = 6, max = 18, message = "密码长度必须大于等于6字符，小于等于15字符")
 	private String password;
 	/** 用户邮件 */
-	@NotBlank(message = "邮件地址不能够为空")
-	@Email(message = "请输入合法的邮箱地址")
+//	@NotBlank(message = "邮件地址不能够为空")
+//	@Email(message = "请输入合法的邮箱地址")
 	private String userEmail;
 	/** 用户出生日期 */
 //	// @Past 验证birthDay是否在当前对象之前
 //	@Past
 //	private Date birthDay;
 	/** 用户年龄 */
-	@Range(min = 18, max = 60, message = "用户年龄需在18到60岁之间")
+//	@Range(min = 18, max = 200, message = "用户年龄需在18到60岁之间")
 	private int age;
 //	/** 用户头像 */
 //	private MultipartFile profilePicture;
